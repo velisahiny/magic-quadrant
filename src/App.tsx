@@ -14,6 +14,12 @@ export const ItemContext = React.createContext({
 });
 
 export const useStyles = createUseStyles({
+    app: {
+    },
+    table: {
+        paddingLeft:20,
+        float: "left"
+    },
     tableHeader: {
         backgroundColor: Colors.LIGHT_BLUE,
         color: Colors.WHITE,
@@ -25,11 +31,35 @@ export const useStyles = createUseStyles({
             background: Colors.DARK_GREY
         }
     },
+
+    labelOfArea: {
+        position: "relative",
+        // float: "left",
+        color: Colors.WHITE,
+        backgroundColor: Colors.LIGHT_BLUE,
+        display: "inline-block"
+    },
+    verticalLine: {
+        width: 2,
+        position: "absolute",
+        backgroundColor: Colors.LIGHT_GREY,
+        marginLeft: 200,
+        height: 400,
+    },
+    horizontalLine: {
+        height: 2,
+        position: "absolute",
+        backgroundColor: Colors.LIGHT_GREY,
+        marginTop: 200,
+        width: 400,
+    },
     chart: {
+        marginLeft: 20,
+        float: "left",
         width: 400,
         height: 400,
         border: [2, "solid", Colors.DARK_GREY],
-        position: "absolute",
+        position: "relative",
         backgroundColor: Colors.WHITE
     },
     circle: {
@@ -38,21 +68,27 @@ export const useStyles = createUseStyles({
         width: 15,
         height: 15,
         borderRadius: "50%",
-        zIndex:1000
+        zIndex: 1000
+    },
+    label: {
+        marginTop: 15,
+        marginLeft: 15,
+        position: "absolute",
+        fontSize: 13,
+        fontFamily: "sans-serif",
+        color: Colors.DARK_BLUE
     }
 })
 
 
 function App() {
     const [state, dispatch] = useReducer(reducer, initialState);
-
+    const classes = useStyles();
     return (
-        <div className="App">
-            <header className="App-header">
-            </header>
+        <div className={classes.app}>
             <ItemContext.Provider value={{state, dispatch}}>
-                <ItemTable/>
                 <Chart/>
+                <ItemTable/>
             </ItemContext.Provider>
         </div>
     );

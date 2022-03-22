@@ -14,8 +14,8 @@ export function Circle(props: CircleProps) {
     const {state, dispatch} = useContext(ItemContext);
     const update = (x: number, y: number) => {
         const newState = {...state};
-        newState.items[props.index].x = x / 4;
-        newState.items[props.index].y = 100 - (y / 4);
+        newState.items[props.index].x = parseFloat((x / 4).toFixed(2));
+        newState.items[props.index].y = parseFloat((100 - y / 4).toFixed(2));
         dispatch({type: "add", payload: newState});
     };
 
@@ -24,17 +24,14 @@ export function Circle(props: CircleProps) {
         const el = document.getElementById("elem" + props.index);
         if (el) {
             el.onmousedown = (event: any) => {
-                console.log(circleRef);
-                console.log(el);
                 el.style.zIndex = "1000";
                 const container = document.getElementById("container");
                 container?.append(el);
                 const moveAt = (pageX: number, pageY: number) => {
-                    console.log(pageX, pageY);
 
                     const left = pageX - el.offsetWidth / 2;
                     const top = pageY - el.offsetHeight / 2;
-                    const restrictedLeft = (left < 400 ? (left > 0 ? left : 0) : 400);
+                    const restrictedLeft = ( left< 400 ? (left > 0 ? left : 0) : 400);
                     const restrictedTop = (top < 400 ? (top > 0 ? top : 0) : 400);
                     el.style.left = restrictedLeft + 'px';
                     el.style.top = restrictedTop + 'px';
@@ -61,9 +58,9 @@ export function Circle(props: CircleProps) {
 
     useEffect(() => {
         const el = document.getElementById("elem" + props.index);
-        if(el){
+        if (el) {
             el.style.left = props.item.x * 4 + 'px';
-            el.style.top = (100-props.item.y) * 4 + 'px';
+            el.style.top = (100 - props.item.y) * 4 + 'px';
         }
     }, [props.item.x, props.item.y])
 
@@ -71,7 +68,7 @@ export function Circle(props: CircleProps) {
         <div id={"elem" + props.index}
              className={classes.circle}
              ref={circleRef}
-        ><span style={{marginTop: 15, marginLeft: 15, position: "absolute"}}>{props.item.label}</span>
+        ><span className={classes.label}>{props.item.label}</span>
         </div>);
 
 }

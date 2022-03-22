@@ -13,21 +13,23 @@ export function ItemRenderer(props: ItemRendererProps) {
 
     const onDeleteItem = () => {
         const newState = {...state};
-        newState.items.splice(props.index,1);
-        dispatch({type:"delete",payload :newState});
+        newState.items.splice(props.index, 1);
+        dispatch({type: "delete", payload: newState});
     }
 
-    const onUpdate = (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
+    const onUpdate = (event: any, field: string) => {
         const newState = {...state};
         switch (field) {
             case "label":
                 newState.items[props.index].label = event.target.value;
                 break;
             case "x":
-                newState.items[props.index].x = parseFloat(event.target.value);
+                const x = parseFloat(parseFloat(event.target.value).toFixed(2));
+                newState.items[props.index].x = x < 100 ? (x > 0 ? x : 0) : 100;
                 break;
             case "y":
-                newState.items[props.index].y = parseFloat(event.target.value);
+                const y = parseFloat(parseFloat(event.target.value).toFixed(2));
+                newState.items[props.index].y = y < 100 ? (y > 0 ? y : 0) : 100;
                 break;
         }
         dispatch({type: "add", payload: newState});

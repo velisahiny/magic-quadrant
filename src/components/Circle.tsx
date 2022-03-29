@@ -12,6 +12,7 @@ export function Circle(props: CircleProps) {
     const classes = useStyles();
     const circleRef = useRef<HTMLDivElement>(null);
     const {state, dispatch} = useContext(ItemContext);
+    const [dragging, setDragging] = useState<boolean>(false);
     const update = (x: number, y: number) => {
         const newState = {...state};
         newState.items[props.index].x = parseFloat((x / 4).toFixed(2));
@@ -24,6 +25,7 @@ export function Circle(props: CircleProps) {
         const el = document.getElementById("elem" + props.index);
         if (el) {
             el.onmousedown = (event: any) => {
+                setDragging(true);
                 el.style.zIndex = "1000";
                 const container = document.getElementById("container");
                 container?.append(el);
@@ -46,6 +48,7 @@ export function Circle(props: CircleProps) {
                 }
                 document.addEventListener('mousemove', onMouseMove);
                 el.onmouseup = () => {
+                    setDragging(false);
                     document.removeEventListener('mousemove', onMouseMove);
                     el.onmouseup = null;
                 }
@@ -64,12 +67,17 @@ export function Circle(props: CircleProps) {
         }
     }, [props.item.x, props.item.y])
 
-    return (
+    return (<>
+        {dragging && <>
+            <div style={{marginLeft:4*(props.item.x),height:(props.item.y) * 4, bottom:0 }} className={classes.dottedVerticalLine}></div>
+            <div style={{width:4*(props.item.x), top: (100 - props.item.y) * 4}} className={classes.dottedHorizontalLine}></div>
+        </>}
         <div id={"elem" + props.index}
              className={classes.circle}
              ref={circleRef}
              style={{opacity: props.item.checked ? 0.5 : 1}}
         ><span className={classes.label}>{props.item.label}</span>
-        </div>);
+        </div>
+    </>);
 
 }

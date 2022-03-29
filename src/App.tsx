@@ -51,6 +51,19 @@ export const useStyles = createUseStyles({
         marginTop: 200,
         width: 400,
     },
+    dottedVerticalLine:{
+        width: 2,
+        position: "absolute",
+        backgroundColor: Colors.LIGHT_GREY,
+        borderLeft: "2px dotted"
+    },
+    dottedHorizontalLine: {
+        height: 2,
+        position: "absolute",
+        backgroundColor: Colors.LIGHT_GREY,
+        width: 400,
+        borderTop: "2px dotted"
+    },
     chart: {
         marginLeft: 20,
         float: "left",

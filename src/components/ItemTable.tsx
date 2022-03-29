@@ -18,7 +18,7 @@ export function ItemTable(props: ItemTableProps) {
 
     const addItem = () => {
         const newState = {...state};
-        newState.items.push({label: "New", x: 50, y: 50});
+        newState.items.push({label: "New", x: 50, y: 50, checked:false});
         dispatch({type: "add", payload: newState});
     }
     return (

@@ -9,6 +9,9 @@ export function TableHeader() {
     return (<>
         <tr className={classes.tableHeader}>
             <th>
+                Checkbox
+            </th>
+            <th>
                 Label
             </th>
             <th>

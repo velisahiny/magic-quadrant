@@ -1,10 +1,8 @@
 import React, {useReducer} from 'react';
 import {ItemTable} from "./components/ItemTable";
-import {DummyItems} from "./common/DummyItems";
 import {Action, initialState, reducer} from "./common/Reducer";
 import {createUseStyles} from "react-jss";
 import {Colors} from "./common/Colors";
-import {hover} from "@testing-library/user-event/dist/hover";
 import {Chart} from "./components/Chart";
 
 export const ItemContext = React.createContext({

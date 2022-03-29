@@ -1,6 +1,7 @@
 import {Item} from "../common/Item";
 import {useContext, useEffect} from "react";
 import {ItemContext} from "../App";
+import {brotliCompress} from "zlib";
 
 export interface ItemRendererProps {
     item: Item;
@@ -20,6 +21,9 @@ export function ItemRenderer(props: ItemRendererProps) {
     const onUpdate = (event: any, field: string) => {
         const newState = {...state};
         switch (field) {
+            case "checkBox":
+                newState.items[props.index].checked=event.target.checked;
+                break;
             case "label":
                 newState.items[props.index].label = event.target.value;
                 break;
@@ -36,6 +40,9 @@ export function ItemRenderer(props: ItemRendererProps) {
     };
     return (
         <tr>
+            <td>
+                <input type="checkbox" checked={props.item.checked} onChange={(event=>onUpdate(event,"checkBox"))} />
+            </td>
             <td>
                 <input onChange={(event) => onUpdate(event, "label")} type="text" value={props.item.label}/>
             </td>
